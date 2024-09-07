@@ -2,9 +2,12 @@ import "@mantine/core/styles.css";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { theme } from "../theme";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App({ Component, pageProps }: any) {
+  const queryClient = new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
     <MantineProvider theme={theme}>
       <Head>
         <title>Mantine Template</title>
@@ -16,5 +19,6 @@ export default function App({ Component, pageProps }: any) {
       </Head>
       <Component {...pageProps} />
     </MantineProvider>
+    </QueryClientProvider>
   );
 }
