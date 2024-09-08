@@ -1,47 +1,49 @@
-import { Button, Group, Text, Card, Image, Badge, Title, LoadingOverlay } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { Card, Image, Group, Badge, Text, Title, LoadingOverlay } from "@mantine/core";
 
-export default function PokemonPage() {
+// In progress website 
 
-  const fetchPokemon = async () => {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
+export default function PokemonListPage() {
+  // Fetch Pokémon data for IDs 1 to 100
+  const fetchAllPokemon = async () => {
+    const requests = Array.from({ length: 900 }, (_, index) =>
+      fetch(`https://pokeapi.co/api/v2/pokemon/${index + 1}`).then((res) => res.json())
+    );
+    return Promise.all(requests); // Wait for all requests to complete
   };
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['pokemonData'],
-    queryFn: fetchPokemon
+    queryKey: ['allPokemonData'],
+    queryFn: fetchAllPokemon,
   });
 
   if (isLoading) return <LoadingOverlay visible />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <Group mt={50}>
-      <Card shadow="sm" padding="lg" style={{ maxWidth: 400 }}>
-        <Card.Section>
-          <Image src={data.sprites.front_default} alt={data.name} height={160} />
-        </Card.Section>
+    <div>
+           <Title order={2}>Pokédex</Title>
+    <Group position="center" direction="column" spacing="lg" mt={50}>
+      {data.map((pokemon) => (
+        <Card key={pokemon.id} shadow="sm" padding="lg" style={{ width: 200 }}>
+          <Card.Section>
+            <Image src={pokemon.sprites.front_default} alt={pokemon.name} height={160} />
+          </Card.Section>
+          
+          <Group position="apart" mt="md" mb="xs">
+            <Title order={3}>{pokemon.name.toUpperCase()}</Title>
+            <Badge color="blue" variant="light">
+              #{pokemon.id}
+            </Badge>
+          </Group>
 
-        <Group mt="md" mb="xs">
-          <Title order={2}>{data.name.toUpperCase()}</Title>
-          <Badge color="blue" variant="light">
-            #{data.id}
-          </Badge>
-        </Group>
-
-        <Text  size="md">Type: {data.types.map((type) => type.type.name).join(", ")}</Text>
-        <Text size="md">Abilities: {data.abilities.map((ability) => ability.ability.name).join(", ")}</Text>
-        <Text size="md">Base Experience: {data.base_experience}</Text>
-
-        <Button fullWidth mt="md" size="md">
-          Learn More
-        </Button>
-      </Card>
-      <p>Welcome to the Pokémon World!</p>
+          <Text weight={500} size="md">Type: {pokemon.types.map((type) => type.type.name).join(", ")}</Text>
+          {/* <Text weight={500} size="md">Abilities: {pokemon.abilities.map((ability) => ability.ability.name).join(", ")}</Text>
+          <Text weight={500} size="md">Base Experience: {pokemon.base_experience}</Text> */}
+        </Card>
+      ))}
     </Group>
+    </div>
+
   );
 }
