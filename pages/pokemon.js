@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import CustomNavbar from "../components/MyNavbar";
+import { Card } from "@mantine/core";
 
 export default function Pokemon() {
   const [pokemon, setPokemon] = useState("");
@@ -155,9 +156,12 @@ export default function Pokemon() {
         {filterByType().map((pokemon) => {
           console.log(pokemon);
           return (
-            <div
-              key={pokemon.id}
-              className={`p-3 rounded m-2 ${pokemon.types[0].type.name}`}
+            <Card
+              shadow="xl"
+              padding="xl"
+              style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+              withBorder
+              m={"md"}
             >
               <button
                 style={{ float: "right" }}
@@ -165,7 +169,7 @@ export default function Pokemon() {
               >
                 <p className="hover:text-red-400">X</p>
               </button>
-              <Link href={`/Pokemon/${pokemon.id}`}>
+              <Link href={`/pokedex/${pokemon.id}`}>
                 <li>
                   {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
                 </li>
@@ -176,7 +180,7 @@ export default function Pokemon() {
                   />
                 </div>
               </Link>
-            </div>
+            </Card>
           );
         })}
       </ul>
