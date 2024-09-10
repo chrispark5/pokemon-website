@@ -7,6 +7,7 @@ export default function Pokemon() {
   const [pokemon, setPokemon] = useState("");
   const [pokemonData, setPokemonData] = useState([]);
   const [filter, setFilter] = useState("");
+  // test comment
   const allTypes = [
     "all",
     "normal",
