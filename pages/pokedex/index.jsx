@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Card, Image, Group, Badge, Text, Title, LoadingOverlay } from "@mantine/core";
+import { Card, Image, Group, Badge, Text, Title, LoadingOverlay, Container, Flex, Center } from "@mantine/core";
+import Link from "next/link";
 
 // In progress website 
 
@@ -21,10 +22,15 @@ export default function PokemonListPage() {
 
   return (
     <div>
-    <Title order={2}>Pokédex</Title>
-    <Group position="center" direction="column" spacing="lg" mt={50}>
+     
+    <Container fluid mx={"xl"}>
+      <Flex align={"center"} justify={"center"}>
+        <Title order={1} m={"lg"}>Pokédex</Title>
+      </Flex>
+    <Group position="center" justify="space-between"direction="column" spacing="lg" mt={50}>
       {data.map((pokemon) => (
-        <Card key={pokemon.id} shadow="sm" padding="lg" style={{ width: 200 }}>
+        <Link href={`/pokedex/${pokemon.id}`} key={pokemon.id} style={{textDecoration: 'none'}}>
+        <Card key={pokemon.id} shadow="xl" padding="lg" style={{ width: 200 }} >
           <Card.Section>
             <Image src={pokemon.sprites.front_default} alt={pokemon.name} height={160} />
           </Card.Section>
@@ -40,8 +46,10 @@ export default function PokemonListPage() {
           {/* <Text weight={500} size="md">Abilities: {pokemon.abilities.map((ability) => ability.ability.name).join(", ")}</Text>
           <Text weight={500} size="md">Base Experience: {pokemon.base_experience}</Text> */}
         </Card>
+          </Link>
       ))}
     </Group>
+    </Container>
     </div>
 
   );
