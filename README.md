@@ -1,5 +1,3 @@
-# Mantine Next Template
+# This project is a simple Pokemon website with a pokedex, type matchup tool, and a page for saving favorited pokemon
 
-Get started with the template by clicking `Use this template` button on the top of the page.
-
-[Documentation](https://mantine.dev/guides/next/)
+Connect this to the "pokemon" repo that has certain endpoints for saving the pokemon to a Postgres DB
