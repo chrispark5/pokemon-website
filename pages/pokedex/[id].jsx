@@ -52,7 +52,7 @@ export default function IndividualPokemon() {
       </Link>
       {data ? (
         <Flex align="center" justify="center">
-          <Title order={2}>
+          <Title>
             {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
           </Title>
         </Flex>
@@ -67,7 +67,7 @@ export default function IndividualPokemon() {
             style={{ backgroundColor: "#f9f9f9" }}
             withBorder
           >
-            <h3>Base Stats</h3>
+            <Title order={3}>Base Stats</Title>
             {data.stats.map((stat) => (
               <div key={stat.stat.name}>
                 <Text>{`${stat.stat.name}: ${stat.base_stat}`}</Text>
@@ -80,10 +80,27 @@ export default function IndividualPokemon() {
             style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
             withBorder
           >
-            <h3>Abilities</h3>
+            <Title order={3}>Abilities</Title>
             {data.abilities.map((ability) => (
               <Text key={ability.ability.name}>{ability.ability.name}</Text>
             ))}
+          </Card>
+          <Card
+            shadow="xl"
+            padding="lg"
+            style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+            withBorder
+          >
+            <img src={data.sprites.front_default} alt="" />
+          </Card>
+          <Card
+            shadow="xl"
+            padding="lg"
+            style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+            withBorder
+          >
+            {" "}
+            <img src={data.sprites.front_shiny} alt="" />
           </Card>
         </div>
         <Image src={imageUrl} width="100%" />
@@ -94,7 +111,7 @@ export default function IndividualPokemon() {
             style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
             withBorder
           >
-            <h3>Appears in</h3>
+            <Title order={3}>Appears in</Title>
             {data.game_indices.map((game) => (
               <p style={{ margin: 0 }} key={game.game_index}>
                 {game.version.name}
