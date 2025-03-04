@@ -1,65 +1,61 @@
 .wrapper {
-    position: relative;
-    padding-top: rem(180px);
-    padding-bottom: rem(130px);
-    width: 100vw;
-    height: 100vh;
-    background-image: url(https://www.chromethemer.com/wallpapers/chromebook-wallpapers/images/960/pokemon-chromebook-wallpaper.jpg);
-    background-size:cover;
-    background-position: center;
-  }
-  
-  .inner {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .title {
-    font-weight: 800;
-    font-size: rem(60px);
-    letter-spacing: rem(-1px);
-    padding-left: var(--mantine-spacing-md);
-    padding-right: var(--mantine-spacing-md);
-    color: var(--mantine-color-white);
-    margin-bottom: var(--mantine-spacing-xs);
-    text-align: center;
-    font-family:
+  position: relative;
+  padding-top: rem(180px);
+  padding-bottom: rem(130px);
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://www.chromethemer.com/wallpapers/chromebook-wallpapers/images/960/pokemon-chromebook-wallpaper.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-weight: 800;
+  font-size: rem(60px);
+  letter-spacing: rem(-1px);
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+  color: var(--mantine-color-white);
+  margin-bottom: var(--mantine-spacing-xs);
+  text-align: center;
+  font-family: "pokemon-classic";
+  /* font-family:
       Greycliff CF,
-      var(--mantine-font-family);
+      var(--mantine-font-family); */
+}
 
-  }
-  
-  .highlight {
-    color: var(--mantine-color-primary-4);
-  }
-  
-  .description {
-    color: var(--mantine-color-gray-0);
-    text-align: center;
-  
-  }
-  
-  .controls {
-    margin-top: calc(var(--mantine-spacing-xl) * 1.5);
-    display: flex;
-    justify-content: center;
-    padding-left: var(--mantine-spacing-md);
-    padding-right: var(--mantine-spacing-md);
+.highlight {
+  color: var(--mantine-color-primary-4);
+}
 
-  }
-  
-  .control {
-    height: rem(42px);
-    font-size: var(--mantine-font-size-md);
-  
-    &:not(:first-of-type) {
-      margin-left: var(--mantine-spacing-md);
-    }
-  
-  }
-  
-  .secondaryControl {
-    color: var(--mantine-color-white);
-    background-color: rgba(255, 255, 255, 0.4);
+.description {
+  color: var(--mantine-color-gray-0);
+  text-align: center;
+}
 
+.controls {
+  margin-top: calc(var(--mantine-spacing-xl) * 1.5);
+  display: flex;
+  justify-content: center;
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+}
+
+.control {
+  height: rem(42px);
+  font-size: var(--mantine-font-size-md);
+
+  &:not(:first-of-type) {
+    margin-left: var(--mantine-spacing-md);
   }
+}
+
+.secondaryControl {
+  color: var(--mantine-color-white);
+  background-color: rgba(255, 255, 255, 0.4);
+}

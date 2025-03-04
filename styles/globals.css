@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "pokemon";
+  src: url("/fonts/Pokemon\ Solid.ttf") format("truetype");
+  /* url('/fonts/MyCustomFont.woff') format('woff'); */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "pokemon-classic";
+  src: url("/fonts/Pokemon\ Classic.ttf") format("truetype");
+  /* url('/fonts/MyCustomFont.woff') format('woff'); */
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "pokemon-classic", sans-serif;
+}

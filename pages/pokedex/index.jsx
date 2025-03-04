@@ -10,9 +10,11 @@ import {
   Container,
   Flex,
   Center,
+  Button,
 } from "@mantine/core";
 import Link from "next/link";
 import CustomNavbar from "../../components/MyNavbar";
+import { useState } from "react";
 
 // In progress website
 
@@ -26,9 +28,25 @@ export default function PokemonListPage() {
     return Promise.all(requests); // Wait for all requests to complete
   };
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["allPokemonData"],
-    queryFn: fetchAllPokemon,
+  const fetchPokemonPage = async (page) => {
+    const limit = 50; // Number of Pokémon per page
+    const offset = (page - 1) * limit;
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+    );
+    const data = await response.json();
+    const pokemonDetails = await Promise.all(
+      data.results.map((pokemon) =>
+        fetch(pokemon.url).then((res) => res.json())
+      )
+    );
+    return pokemonDetails;
+  };
+  const [page, setPage] = useState(1);
+  const { data, isLoading, error, isFetching } = useQuery({
+    queryKey: ["pokemonPage", page],
+    queryFn: () => fetchPokemonPage(page),
+    keepPreviousData: true,
   });
 
   if (isLoading) return <LoadingOverlay visible />;
@@ -90,6 +108,21 @@ export default function PokemonListPage() {
             </Link>
           ))}
         </Group>
+        <Center mt="lg">
+          <Button
+            onClick={() => setPage((old) => Math.max(old - 1, 1))}
+            disabled={page === 1}
+            style={{ marginRight: 10 }} // Add margin to the right
+          >
+            Previous
+          </Button>
+          <Button
+            onClick={() => setPage((old) => old + 1)}
+            disabled={data.length < 50}
+          >
+            Next
+          </Button>
+        </Center>
       </Container>
     </div>
   );
