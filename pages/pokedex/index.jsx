@@ -64,8 +64,13 @@ export default function PokemonListPage() {
                 style={{ width: 200 }}
               >
                 <Card.Section>
-                  <Image
+                  {/* <Image
                     src={pokemon.sprites.front_default}
+                    alt={pokemon.name}
+                    height={160}
+                  /> */}
+                  <Image
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
                     alt={pokemon.name}
                     height={160}
                   />
