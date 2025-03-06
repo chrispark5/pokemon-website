@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Select, Container, Title, Text, Box, Image } from "@mantine/core";
+import {
+  Select,
+  Container,
+  Title,
+  Text,
+  Box,
+  Image,
+  Flex,
+  Loader,
+} from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTypeData, fetchTypeDetails } from "../../api/pokeApi"; // Adjusted path
 import { typeIcons } from "../icons"; // Import the icon mapping
@@ -20,7 +29,18 @@ const TypeMatchup = () => {
   });
 
   if (typesLoading || detailsLoading) {
-    return <Text>Loading...</Text>;
+    return (
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh", // Full viewport height
+        }}
+      >
+        <Loader size="lg" />
+      </Container>
+    );
   }
 
   if (!types || !typeDetails) {
@@ -55,25 +75,45 @@ const TypeMatchup = () => {
 
       <Text align="center" size="lg">
         <strong>Strengths:</strong>{" "}
-        {strengths.map((type) => (
-          <img
-            key={type}
-            src={typeIcons[type]}
-            alt={`${type} icon`}
-            style={{ width: 100, height: 100, margin: "0 4px" }}
-          />
-        ))}
+        <Flex
+          mih={50}
+          // bg="rgba(0, 0, 0, .3)"
+          gap="md"
+          justify="center"
+          align="flex-start"
+          direction="row"
+          wrap="wrap"
+        >
+          {strengths.map((type) => (
+            <img
+              key={type}
+              src={typeIcons[type]}
+              alt={`${type} icon`}
+              style={{ width: 100, height: 100, margin: "0 4px" }}
+            />
+          ))}
+        </Flex>
       </Text>
       <Text align="center" size="lg" mt="md">
         <strong>Weaknesses:</strong>{" "}
-        {weaknesses.map((type) => (
-          <img
-            key={type}
-            src={typeIcons[type]}
-            alt={`${type} icon`}
-            style={{ width: 100, height: 100, margin: "0 4px" }}
-          />
-        ))}
+        <Flex //TODO: flex can't be inside a Text element
+          mih={50}
+          // bg="rgba(0, 0, 0, .3)"
+          gap="md"
+          justify="center"
+          align="flex-start"
+          direction="row"
+          wrap="wrap"
+        >
+          {weaknesses.map((type) => (
+            <img
+              key={type}
+              src={typeIcons[type]}
+              alt={`${type} icon`}
+              style={{ width: 100, height: 100, margin: "0 4px" }}
+            />
+          ))}
+        </Flex>
       </Text>
     </Container>
   );
