@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Card,
-  Center,
   Container,
   Flex,
   Image,
@@ -14,8 +14,6 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// import { IconArrowLeft } from "@tabler/icons";
-
 export default function IndividualPokemon() {
   const router = useRouter();
   const { id } = router.query;
@@ -26,27 +24,50 @@ export default function IndividualPokemon() {
     return response.json();
   };
 
+  const fetchEvolutionChain = async (speciesUrl) => {
+    const speciesResponse = await fetch(speciesUrl);
+    const speciesData = await speciesResponse.json();
+    const evolutionResponse = await fetch(speciesData.evolution_chain.url);
+    return evolutionResponse.json();
+  };
+
   const { data, isLoading, error, isPending } = useQuery({
     queryKey: ["indPokemonData"],
     queryFn: fetchOnePokemon,
     enabled: !!id,
   });
 
-  console.log(data);
-  // Handle loading and error states
-  if (isLoading | isPending) {
+  const [evolutionData, setEvolutionData] = useState(null);
+
+  useEffect(() => {
+    if (data) {
+      fetchEvolutionChain(data.species.url).then(setEvolutionData);
+    }
+  }, [data]);
+
+  const getEvolutionIds = (chain) => {
+    const ids = [];
+    let current = chain;
+    while (current) {
+      const id = current.species.url.split("/").slice(-2, -1)[0];
+      ids.push(id);
+      current = current.evolves_to[0];
+    }
+    return ids;
+  };
+
+  if (isLoading || isPending) {
     return <LoadingOverlay visible />;
   }
 
   if (error) {
-    return <Text> Error loading Pokemon data</Text>;
+    return <Text>Error loading Pokemon data</Text>;
   }
 
   return (
     <Container fluid>
       <Link href={"/pokedex"}>
         <Button m={"sm"}>
-          {" "}
           <IconArrowLeft /> Back to Pokedex
         </Button>
       </Link>
@@ -99,7 +120,6 @@ export default function IndividualPokemon() {
             style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
             withBorder
           >
-            {" "}
             <img src={data.sprites.front_shiny} alt="" />
           </Card>
         </div>
@@ -118,6 +138,28 @@ export default function IndividualPokemon() {
               </p>
             ))}
           </Card>
+          {evolutionData && (
+            <Card
+              shadow="xl"
+              padding="xl"
+              style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+              withBorder
+            >
+              <Title order={3}>Evolutions</Title>
+              <Flex>
+                {getEvolutionIds(evolutionData.chain).map((evolutionId) => (
+                  <Image
+                    key={evolutionId}
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolutionId}.png`}
+                    alt={`Evolution ${evolutionId}`}
+                    width={100}
+                    height={100}
+                    style={{ margin: "0 10px" }}
+                  />
+                ))}
+              </Flex>
+            </Card>
+          )}
         </div>
       </Flex>
     </Container>
