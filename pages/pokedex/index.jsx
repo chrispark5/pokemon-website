@@ -10,6 +10,7 @@ import {
   Flex,
   Center,
   Button,
+  Text,
 } from "@mantine/core";
 import Link from "next/link";
 import CustomNavbar from "../../components/MyNavbar";
@@ -87,12 +88,12 @@ export default function PokemonListPage() {
                   />
                 </Card.Section>
 
-                <Title
+                <Text
                   order={3}
-                  style={{ fontSize: "1.2rem", textAlign: "center" }}
+                  style={{ fontSize: "1rem", textAlign: "center" }}
                 >
                   {pokemon.name.toUpperCase()}
-                </Title>
+                </Text>
                 <Badge
                   color="blue"
                   variant="light"

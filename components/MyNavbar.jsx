@@ -47,6 +47,9 @@ export default function CustomNavbar() {
               >
                 Type Matchup
               </Button>
+              <Button variant="outline" onClick={() => router.push("/search")}>
+                Search for Pokemon
+              </Button>
             </Group>
           </Group>
         </Container>
@@ -92,8 +95,20 @@ export default function CustomNavbar() {
             router.push("/TypeMatchup");
             setOpened(false);
           }}
+          style={{ marginBottom: 10 }}
         >
           Type Matchup
+        </Button>
+        <Button
+          variant="outline"
+          fullWidth
+          onClick={() => {
+            router.push("/search");
+            setOpened(false);
+          }}
+          style={{ marginBottom: 10 }}
+        >
+          Search
         </Button>
       </Drawer>
     </>
