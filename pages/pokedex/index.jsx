@@ -88,7 +88,7 @@ export default function PokemonListPage() {
                     height={160}
                   /> */}
                   <Image
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                     alt={pokemon.name}
                     height={160}
                   />
@@ -99,9 +99,9 @@ export default function PokemonListPage() {
                   #{pokemon.id}
                 </Badge>
 
-                <Text weight={500} size="md">
+                {/* <Text weight={500} size="md">
                   Type: {pokemon.types.map((type) => type.type.name).join(", ")}
-                </Text>
+                </Text> */}
                 {/* <Text weight={500} size="md">Abilities: {pokemon.abilities.map((ability) => ability.ability.name).join(", ")}</Text>
           <Text weight={500} size="md">Base Experience: {pokemon.base_experience}</Text> */}
               </Card>

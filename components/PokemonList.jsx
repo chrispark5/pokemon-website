@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Flex, Stack, Text, Button, Collapse } from "@mantine/core";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import PokemonImage from "./PokemonImage";
+import Link from "next/link";
 
 export default function PokemonList(props) {
   const [openedIndex, setOpenedIndex] = useState(null);
@@ -39,9 +40,17 @@ export default function PokemonList(props) {
               url={pokemon.url}
               style={{ borderRadius: "50%", border: "2px solid #ffcb05" }}
             />
-            <Text weight={500} size="lg" style={{ flex: 1, color: "#2a75bb" }}>
-              {pokemon.name}
-            </Text>
+            <Link
+              href={`/pokedex/${pokemon.url.split("/").filter(Boolean).pop()}`}
+            >
+              <Text
+                weight={500}
+                size="lg"
+                style={{ flex: 1, color: "#2a75bb" }}
+              >
+                {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+              </Text>
+            </Link>
             <Button onClick={() => toggleDropdown(index)} variant="subtle">
               {openedIndex === index ? (
                 <IconChevronUp size={16} />

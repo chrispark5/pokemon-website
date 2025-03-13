@@ -32,7 +32,7 @@ export default function IndividualPokemon() {
   };
 
   const { data, isLoading, error, isPending } = useQuery({
-    queryKey: ["indPokemonData"],
+    queryKey: ["findPokemonData"],
     queryFn: fetchOnePokemon,
     enabled: !!id,
   });
