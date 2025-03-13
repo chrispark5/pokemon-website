@@ -25,3 +25,29 @@ body {
 .pokeSearch {
   background-image: url("/wp3170170.webp");
 }
+#desktop-menu {
+  display: flex;
+}
+#big-nav {
+  display: flex;
+}
+.mobile-menu {
+  display: none;
+}
+@media (max-width: 768px) {
+  #desktop-menu {
+    display: none;
+  }
+  #big-nav {
+    display: none !important;
+  }
+  .mobile-menu {
+    display: block;
+  }
+  .mobile-menu {
+    display: block;
+    position: absolute;
+    top: 16px; /* Adjust as needed */
+    right: 16px; /* Adjust as needed */
+  }
+}
