@@ -4,7 +4,6 @@ import {
   Image,
   Group,
   Badge,
-  Text,
   Title,
   LoadingOverlay,
   Container,
@@ -16,20 +15,9 @@ import Link from "next/link";
 import CustomNavbar from "../../components/MyNavbar";
 import { useState } from "react";
 
-// In progress website
-
 export default function PokemonListPage() {
-  const fetchAllPokemon = async () => {
-    const requests = Array.from({ length: 1025 }, (_, index) =>
-      fetch(`https://pokeapi.co/api/v2/pokemon/${index + 1}`).then((res) =>
-        res.json()
-      )
-    );
-    return Promise.all(requests); // Wait for all requests to complete
-  };
-
   const fetchPokemonPage = async (page) => {
-    const limit = 50; // Number of Pokémon per page
+    const limit = 50;
     const offset = (page - 1) * limit;
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
@@ -42,8 +30,9 @@ export default function PokemonListPage() {
     );
     return pokemonDetails;
   };
+
   const [page, setPage] = useState(1);
-  const { data, isLoading, error, isFetching } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["pokemonPage", page],
     queryFn: () => fetchPokemonPage(page),
     keepPreviousData: true,
@@ -64,10 +53,13 @@ export default function PokemonListPage() {
 
         <Group
           position="center"
-          justify="space-between"
-          direction="column"
           spacing="lg"
           mt={50}
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
         >
           {data.map((pokemon) => (
             <Link
@@ -76,17 +68,18 @@ export default function PokemonListPage() {
               style={{ textDecoration: "none" }}
             >
               <Card
-                key={pokemon.id}
                 shadow="xl"
                 padding="lg"
-                style={{ width: 200 }}
+                style={{
+                  width: 200,
+                  height: 300,
+                  margin: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
               >
                 <Card.Section>
-                  {/* <Image
-                    src={pokemon.sprites.front_default}
-                    alt={pokemon.name}
-                    height={160}
-                  /> */}
                   <Image
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                     alt={pokemon.name}
@@ -94,16 +87,19 @@ export default function PokemonListPage() {
                   />
                 </Card.Section>
 
-                <Title order={3}>{pokemon.name.toUpperCase()}</Title>
-                <Badge color="blue" variant="light">
+                <Title
+                  order={3}
+                  style={{ fontSize: "1.2rem", textAlign: "center" }}
+                >
+                  {pokemon.name.toUpperCase()}
+                </Title>
+                <Badge
+                  color="blue"
+                  variant="light"
+                  style={{ alignSelf: "center" }}
+                >
                   #{pokemon.id}
                 </Badge>
-
-                {/* <Text weight={500} size="md">
-                  Type: {pokemon.types.map((type) => type.type.name).join(", ")}
-                </Text> */}
-                {/* <Text weight={500} size="md">Abilities: {pokemon.abilities.map((ability) => ability.ability.name).join(", ")}</Text>
-          <Text weight={500} size="md">Base Experience: {pokemon.base_experience}</Text> */}
               </Card>
             </Link>
           ))}
@@ -112,7 +108,7 @@ export default function PokemonListPage() {
           <Button
             onClick={() => setPage((old) => Math.max(old - 1, 1))}
             disabled={page === 1}
-            style={{ marginRight: 10 }} // Add margin to the right
+            style={{ marginRight: 10 }}
           >
             Previous
           </Button>

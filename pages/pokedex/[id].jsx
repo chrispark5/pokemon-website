@@ -72,7 +72,7 @@ export default function IndividualPokemon() {
         </Button>
       </Link>
       {data ? (
-        <Flex align="center" justify="center">
+        <Flex align="center" justify="center" direction="column" mb="lg">
           <Title>
             {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
           </Title>
@@ -80,12 +80,19 @@ export default function IndividualPokemon() {
       ) : (
         <Title>No data available</Title>
       )}
-      <Flex align="center" justify="center">
-        <div>
+      <Flex
+        align="center"
+        justify="center"
+        direction={{ base: "column", md: "row" }}
+        wrap="wrap"
+      >
+        <div style={{ flex: 1, minWidth: "300px", maxWidth: "500px" }}>
+          <Image src={imageUrl} width="100%" style={{ maxWidth: "500px" }} />
+
           <Card
             shadow="xl"
             padding="lg"
-            style={{ backgroundColor: "#f9f9f9" }}
+            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
             withBorder
           >
             <Title order={3}>Base Stats</Title>
@@ -98,7 +105,7 @@ export default function IndividualPokemon() {
           <Card
             shadow="xl"
             padding="lg"
-            style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
             withBorder
           >
             <Title order={3}>Abilities</Title>
@@ -106,10 +113,10 @@ export default function IndividualPokemon() {
               <Text key={ability.ability.name}>{ability.ability.name}</Text>
             ))}
           </Card>
-          <Card
+          {/* <Card
             shadow="xl"
             padding="lg"
-            style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
             withBorder
           >
             <img src={data.sprites.front_default} alt="" />
@@ -117,18 +124,24 @@ export default function IndividualPokemon() {
           <Card
             shadow="xl"
             padding="lg"
-            style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
             withBorder
           >
             <img src={data.sprites.front_shiny} alt="" />
-          </Card>
+          </Card> */}
         </div>
-        <Image src={imageUrl} width="100%" />
-        <div style={{ marginLeft: "1rem" }}>
+        <div
+          style={{
+            flex: 1,
+            minWidth: "300px",
+            maxWidth: "500px",
+            marginLeft: "1rem",
+          }}
+        >
           <Card
             shadow="xl"
             padding="xl"
-            style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
             withBorder
           >
             <Title order={3}>Appears in</Title>
@@ -142,11 +155,11 @@ export default function IndividualPokemon() {
             <Card
               shadow="xl"
               padding="xl"
-              style={{ backgroundColor: "#f9f9f9", marginTop: "1rem" }}
+              style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
               withBorder
             >
               <Title order={3}>Evolutions</Title>
-              <Flex>
+              <Flex wrap="wrap" justify="center">
                 {getEvolutionIds(evolutionData.chain).map((evolutionId) => (
                   <Image
                     key={evolutionId}
