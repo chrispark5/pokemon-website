@@ -26,7 +26,8 @@ h6 {
 }
 body {
   font-family: "pokemon-classic", sans-serif;
-  background-color: #e0e0e0;
+  background: #bdc3c7;
+  background: linear-gradient(to right, #bdc3c7, #2c3e50);
 }
 
 .pokeSearch {

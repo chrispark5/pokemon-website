@@ -16,6 +16,7 @@ import Link from "next/link";
 import CustomNavbar from "../../components/MyNavbar";
 import { useState } from "react";
 
+
 export default function PokemonListPage() {
   const fetchPokemonPage = async (page) => {
     const limit = 50;
@@ -69,7 +70,7 @@ export default function PokemonListPage() {
               style={{ textDecoration: "none" }}
             >
               <Card
-                shadow="xl"
+                shadow="sm"
                 padding="lg"
                 style={{
                   width: 200,

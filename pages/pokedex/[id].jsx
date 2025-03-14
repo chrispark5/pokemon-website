@@ -6,14 +6,15 @@ import {
   Flex,
   Image,
   LoadingOverlay,
+  Progress,
   Text,
   Title,
 } from "@mantine/core";
-import { IconArrowLeft } from "@tabler/icons-react";
+import { IconArrowLeft, IconRuler2, IconWeight } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import CustomNavbar from "../../components/MyNavbar";
 export default function IndividualPokemon() {
   const router = useRouter();
   const { id } = router.query;
@@ -66,11 +67,12 @@ export default function IndividualPokemon() {
 
   return (
     <Container fluid>
-      <Link href={"/pokedex"}>
+      {/* <Link href={"/pokedex"}>
         <Button m={"sm"}>
           <IconArrowLeft /> Back to Pokedex
         </Button>
-      </Link>
+      </Link> */}
+      <CustomNavbar />
       {data ? (
         <Flex align="center" justify="center" direction="column" mb="lg">
           <Title>
@@ -83,37 +85,75 @@ export default function IndividualPokemon() {
       <Flex
         align="center"
         justify="center"
-        direction={{ base: "column", md: "row" }}
+        direction="column"
+        // direction={{ base: "column", md: "row" }}
         wrap="wrap"
       >
-        <div style={{ flex: 1, minWidth: "300px", maxWidth: "500px" }}>
-          <Image src={imageUrl} width="100%" style={{ maxWidth: "500px" }} />
-
-          <Card
-            shadow="xl"
-            padding="lg"
-            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
-            withBorder
+        {/* <div style={{ flex: 1, minWidth: "300px", maxWidth: "500px" }}> */}
+        <Image src={imageUrl} width="100%" style={{ maxWidth: "500px" }} />
+        <Flex
+          direction="row"
+          justify="center"
+          align="center"
+          style={{ width: "100%", margin: "20px 0" }}
+        >
+          <Flex direction="row" justify="space-between" align="center" m="10px">
+            <IconRuler2 />
+            <Text style={{ marginLeft: "8px" }}>{data.height} M</Text>
+          </Flex>
+          <div
+            style={{
+              borderLeft: "1px solid #ccc",
+              height: "20px",
+              margin: "0 10px",
+            }}
+          ></div>
+          <Flex
+            direction={"row"}
+            justify={"space-between"}
+            align={"center"}
+            m={"10px"}
           >
-            <Title order={3}>Base Stats</Title>
-            {data.stats.map((stat) => (
-              <div key={stat.stat.name}>
-                <Text>{`${stat.stat.name}: ${stat.base_stat}`}</Text>
-              </div>
-            ))}
-          </Card>
-          <Card
-            shadow="xl"
-            padding="lg"
-            style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
-            withBorder
-          >
-            <Title order={3}>Abilities</Title>
-            {data.abilities.map((ability) => (
-              <Text key={ability.ability.name}>{ability.ability.name}</Text>
-            ))}
-          </Card>
-          {/* <Card
+            <IconWeight />
+            <Text style={{ marginLeft: "8px" }}>{data.weight} Kg</Text>
+          </Flex>
+          <div
+            style={{
+              borderLeft: "1px solid #ccc",
+              height: "20px",
+              margin: "0 10px",
+            }}
+          ></div>
+          <div style={{ margin: "10px" }}>
+            {data.abilities[0]?.ability.name}
+          </div>
+        </Flex>
+        <Card
+          shadow="xl"
+          padding="lg"
+          style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
+          withBorder
+        >
+          <Title order={3}>Base Stats</Title>
+          {data.stats.map((stat) => (
+            <div key={stat.stat.name} style={{ marginBottom: "10px" }}>
+              <Text>{`${stat.stat.name}: ${stat.base_stat}`}</Text>
+              <Progress value={(stat.base_stat / 255) * 100} />
+            </div>
+          ))}
+        </Card>
+        {/* <Card
+          shadow="xl"
+          padding="lg"
+          style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
+          withBorder
+        >
+          <Title order={3}>Abilities</Title>
+          {data.abilities.map((ability) => (
+            <Text key={ability.ability.name}>{ability.ability.name}</Text>
+          ))}
+        </Card> */}
+        {/* <Card
             shadow="xl"
             padding="lg"
             style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
@@ -129,7 +169,7 @@ export default function IndividualPokemon() {
           >
             <img src={data.sprites.front_shiny} alt="" />
           </Card> */}
-        </div>
+        {/* </div> */}
         <div
           style={{
             flex: 1,
@@ -138,7 +178,11 @@ export default function IndividualPokemon() {
             marginLeft: "1rem",
           }}
         >
-          <Card
+          {/* TODO */}
+          {/* ADD WEIGHT AND HEIGHT AND TYPE AND DESCRIPTION */}
+          {/* TYPE TAGS */}
+
+          {/* <Card
             shadow="xl"
             padding="xl"
             style={{ backgroundColor: "#f9f9f9", marginBottom: "1rem" }}
@@ -150,7 +194,7 @@ export default function IndividualPokemon() {
                 {game.version.name}
               </p>
             ))}
-          </Card>
+          </Card> */}
           {evolutionData && (
             <Card
               shadow="xl"
